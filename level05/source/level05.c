@@ -28,7 +28,6 @@ int main(void)
     } while (bVar1 != 0);
     if (~uVar2 - 1 <= counter) {
       printf(buffer);
-                    /* WARNING: Subroutine does not return */
       exit(0);
     }
     if (('@' < buffer[counter]) && (buffer[counter] < '[')) {
