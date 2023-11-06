@@ -1,13 +1,1 @@
-In this challenge, we are presented with a straightforward program that opens the .pass file, reads its contents, and then stores this data into a buffer. The program subsequently prompts the user for a username and password. If the provided password matches the one stored in the file, access to the shell is granted.
-
-At first glance, the expected solution might seem to involve a buffer overflow. However, the use of strncmp function effectively curtails any straightforward overflow exploitation.
-
-On closer inspection, we noticed that the content of the .pass file is read and stored on the stack. Furthermore, the program has an unprotected printf function. This becomes our potential point of exploitation. Using the %p format specifier with printf, we can disclose memory addresses. By leveraging this capability, we managed to expose the contents of the stack, which includes the password. Due to the little-endian memory storage, we had to reverse the exposed data to decipher the actual password, successfully bypassing the authentication mechanism.
-
-unPR47hH Hh74RPnu 1
-EAJ5as9Q Q9sa5JAE 2
-7zqCWNgX XgNWCqz7 3
-5J5hnGXs sXGnh5J5 4
-H3gPfK9M M9KfPg3H 5
-
 Hh74RPnuQ9sa5JAEXgNWCqz7sXGnh5J5M9KfPg3H
