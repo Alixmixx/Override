@@ -1,13 +1,51 @@
+clear_stdin();
+; var int32_t var_dh @ stack - 0xd
+0x080485f4      push    ebp
+0x080485f5      mov     ebp, esp
+0x080485f7      sub     esp, 0x18
+0x080485fa      mov     byte [var_dh], 0
+0x080485fe      jmp     0x8048601
+0x08048600      nop
+0x08048601      call    getchar    ; sym.imp.getchar ; int getchar(void)
+0x08048606      mov     byte [var_dh], al
+0x08048609      cmp     byte [var_dh], 0xa
+0x0804860d      je      0x8048615
+0x0804860f      cmp     byte [var_dh], 0xff
+0x08048613      jne     0x8048600
+0x08048615      leave
+0x08048616      ret
+
+get_unum();
+; var int32_t var_28h @ stack - 0x28
+; var int32_t var_10h @ stack - 0x10
+0x08048617      push    ebp
+0x08048618      mov     ebp, esp
+0x0804861a      sub     esp, 0x28
+0x0804861d      mov     dword [var_10h], 0
+0x08048624      mov     eax, dword stdout ; obj.stdout__GLIBC_2.0
+                                   ; 0x804a040
+0x08048629      mov     dword [esp], eax
+0x0804862c      call    fflush     ; sym.imp.fflush ; int fflush(FILE *stream)
+0x08048631      mov     eax, 0x80489c0
+0x08048636      lea     edx, [var_10h]
+0x08048639      mov     dword [var_28h], edx
+0x0804863d      mov     dword [esp], eax
+0x08048640      call    __isoc99_scanf ; sym.imp.__isoc99_scanf ; int scanf(const char *format)
+0x08048645      call    clear_stdin ; sym.clear_stdin
+0x0804864a      mov     eax, dword [var_10h]
+0x0804864d      leave
+0x0804864e      ret
+
 decrypt(int32_t arg_4h);
 ; var int32_t var_30h @ stack - 0x30
 ; var int32_t var_2ch @ stack - 0x2c
-; var unsigned long var_28h @ stack - 0x28
+; var int32_t var_28h @ stack - 0x28
 ; var int32_t var_21h @ stack - 0x21
 ; var int32_t var_1dh @ stack - 0x1d
 ; var int32_t var_19h @ stack - 0x19
 ; var int32_t var_15h @ stack - 0x15
 ; var int32_t var_11h @ stack - 0x11
-; var int32_t canary @ stack - 0x10
+; var int32_t var_10h @ stack - 0x10
 ; arg int32_t arg_4h @ stack + 0x4
 0x08048660      push    ebp
 0x08048661      mov     ebp, esp
@@ -15,7 +53,7 @@ decrypt(int32_t arg_4h);
 0x08048664      push    esi
 0x08048665      sub     esp, 0x40
 0x08048668      mov     eax, dword gs:[0x14]
-0x0804866e      mov     dword [canary], eax
+0x0804866e      mov     dword [var_10h], eax
 0x08048671      xor     eax, eax
 0x08048673      mov     dword [var_21h], 0x757c7d51 ; 'Q}|u'
 0x0804867a      mov     dword [var_1dh], 0x67667360 ; '`sfg'
@@ -69,12 +107,12 @@ decrypt(int32_t arg_4h);
 0x0804870e      movsx   eax, al
 0x08048711      test    eax, eax
 0x08048713      jne     0x8048723
-0x08048715      mov     dword [esp], str.bin_sh ; 0x80489d4 ; const char *string
+0x08048715      mov     dword [esp], str.bin_sh ; 0x80489d4
 0x0804871c      call    system     ; sym.imp.system ; int system(const char *string)
 0x08048721      jmp     0x804872f
-0x08048723      mov     dword [esp], str.Invalid_Password ; 0x80489dc ; const char *s
+0x08048723      mov     dword [esp], str.Invalid_Password ; 0x80489dc
 0x0804872a      call    puts       ; sym.imp.puts ; int puts(const char *s)
-0x0804872f      mov     esi, dword [canary]
+0x0804872f      mov     esi, dword [var_10h]
 0x08048732      xor     esi, dword gs:[0x14]
 0x08048739      je      0x8048740
 0x0804873b      call    __stack_chk_fail ; sym.imp.__stack_chk_fail ; void __stack_chk_fail(void)
@@ -83,3 +121,145 @@ decrypt(int32_t arg_4h);
 0x08048744      pop     edi
 0x08048745      pop     ebp
 0x08048746      ret
+
+test(int32_t arg_4h, int32_t arg_8h);
+; var int32_t var_10h @ stack - 0x10
+; arg int32_t arg_4h @ stack + 0x4
+; arg int32_t arg_8h @ stack + 0x8
+0x08048747      push    ebp
+0x08048748      mov     ebp, esp
+0x0804874a      sub     esp, 0x28
+0x0804874d      mov     eax, dword [arg_4h]
+0x08048750      mov     edx, dword [arg_8h]
+0x08048753      mov     ecx, edx
+0x08048755      sub     ecx, eax
+0x08048757      mov     eax, ecx
+0x08048759      mov     dword [var_10h], eax
+0x0804875c      cmp     dword [var_10h], 0x15
+0x08048760      ja      0x804884a
+0x08048766      mov     eax, dword [var_10h]
+0x08048769      shl     eax, 2
+0x0804876c      add     eax, 0x80489f0
+0x08048771      mov     eax, dword [eax]
+0x08048773      jmp     eax
+0x08048775      mov     eax, dword [ebp - 0xc]
+0x08048778      mov     dword [esp], eax
+0x0804877b      call    decrypt    ; sym.decrypt
+0x08048780      jmp     0x8048858  ; sym.test+0x111
+0x08048785      mov     eax, dword [ebp - 0xc]
+0x08048788      mov     dword [esp], eax
+0x0804878b      call    decrypt    ; sym.decrypt
+0x08048790      jmp     0x8048858  ; sym.test+0x111
+0x08048795      mov     eax, dword [ebp - 0xc]
+0x08048798      mov     dword [esp], eax
+0x0804879b      call    decrypt    ; sym.decrypt
+0x080487a0      jmp     0x8048858  ; sym.test+0x111
+0x080487a5      mov     eax, dword [ebp - 0xc]
+0x080487a8      mov     dword [esp], eax
+0x080487ab      call    decrypt    ; sym.decrypt
+0x080487b0      jmp     0x8048858  ; sym.test+0x111
+0x080487b5      mov     eax, dword [ebp - 0xc]
+0x080487b8      mov     dword [esp], eax
+0x080487bb      call    decrypt    ; sym.decrypt
+0x080487c0      jmp     0x8048858  ; sym.test+0x111
+0x080487c5      mov     eax, dword [ebp - 0xc]
+0x080487c8      mov     dword [esp], eax
+0x080487cb      call    decrypt    ; sym.decrypt
+0x080487d0      jmp     0x8048858  ; sym.test+0x111
+0x080487d5      mov     eax, dword [ebp - 0xc]
+0x080487d8      mov     dword [esp], eax
+0x080487db      call    decrypt    ; sym.decrypt
+0x080487e0      jmp     0x8048858  ; sym.test+0x111
+0x080487e2      mov     eax, dword [ebp - 0xc]
+0x080487e5      mov     dword [esp], eax
+0x080487e8      call    decrypt    ; sym.decrypt
+0x080487ed      jmp     0x8048858  ; sym.test+0x111
+0x080487ef      mov     eax, dword [ebp - 0xc]
+0x080487f2      mov     dword [esp], eax
+0x080487f5      call    decrypt    ; sym.decrypt
+0x080487fa      jmp     0x8048858  ; sym.test+0x111
+0x080487fc      mov     eax, dword [ebp - 0xc]
+0x080487ff      mov     dword [esp], eax
+0x08048802      call    decrypt    ; sym.decrypt
+0x08048807      jmp     0x8048858  ; sym.test+0x111
+0x08048809      mov     eax, dword [ebp - 0xc]
+0x0804880c      mov     dword [esp], eax
+0x0804880f      call    decrypt    ; sym.decrypt
+0x08048814      jmp     0x8048858  ; sym.test+0x111
+0x08048816      mov     eax, dword [ebp - 0xc]
+0x08048819      mov     dword [esp], eax
+0x0804881c      call    decrypt    ; sym.decrypt
+0x08048821      jmp     0x8048858  ; sym.test+0x111
+0x08048823      mov     eax, dword [ebp - 0xc]
+0x08048826      mov     dword [esp], eax
+0x08048829      call    decrypt    ; sym.decrypt
+0x0804882e      jmp     0x8048858  ; sym.test+0x111
+0x08048830      mov     eax, dword [ebp - 0xc]
+0x08048833      mov     dword [esp], eax
+0x08048836      call    decrypt    ; sym.decrypt
+0x0804883b      jmp     0x8048858  ; sym.test+0x111
+0x0804883d      mov     eax, dword [ebp - 0xc]
+0x08048840      mov     dword [esp], eax
+0x08048843      call    decrypt    ; sym.decrypt
+0x08048848      jmp     0x8048858  ; sym.test+0x111
+0x0804884a      call    rand       ; sym.imp.rand ; int rand(void)
+0x0804884f      mov     dword [esp], eax
+0x08048852      call    decrypt    ; sym.decrypt
+0x08048857      nop
+0x08048858      leave
+0x08048859      ret
+
+int main(int argc, char **argv, char **envp);
+; var int32_t var_20h @ stack - 0x20
+; var int32_t var_1ch @ stack - 0x1c
+; var int32_t var_8h @ stack - 0x8
+; var int32_t var_4h @ stack - 0x4
+0x0804885a      push    ebp
+0x0804885b      mov     ebp, esp
+0x0804885d      and     esp, 0xfffffff0
+0x08048860      sub     esp, 0x20
+0x08048863      push    eax
+0x08048864      xor     eax, eax
+0x08048866      je      0x804886b
+0x08048868      add     esp, 4
+0x0804886b      pop     eax
+0x0804886c      mov     dword [esp], 0
+0x08048873      call    time       ; sym.imp.time ; time_t time(time_t *timer)
+0x08048878      mov     dword [esp], eax
+0x0804887b      call    srand      ; sym.imp.srand ; void srand(int seed)
+0x08048880      mov     dword [esp], 0x8048a48
+0x08048887      call    puts       ; sym.imp.puts ; int puts(const char *s)
+0x0804888c      mov     dword [esp], str.level03 ; 0x8048a6c
+0x08048893      call    puts       ; sym.imp.puts ; int puts(const char *s)
+0x08048898      mov     dword [esp], 0x8048a48
+0x0804889f      call    puts       ; sym.imp.puts ; int puts(const char *s)
+0x080488a4      mov     eax, str.Password: ; 0x8048a7b
+0x080488a9      mov     dword [esp], eax
+0x080488ac      call    printf     ; sym.imp.printf ; int printf(const char *format)
+0x080488b1      mov     eax, 0x8048a85
+0x080488b6      lea     edx, [var_8h]
+0x080488ba      mov     dword [var_20h], edx
+0x080488be      mov     dword [esp], eax
+0x080488c1      call    __isoc99_scanf ; sym.imp.__isoc99_scanf ; int scanf(const char *format)
+0x080488c6      mov     eax, dword [var_8h]
+0x080488ca      mov     dword [var_20h], 0x1337d00d
+0x080488d2      mov     dword [esp], eax
+0x080488d5      call    test       ; sym.test
+0x080488da      mov     eax, 0
+0x080488df      leave
+0x080488e0      ret
+0x080488e1      nop
+0x080488e2      nop
+0x080488e3      nop
+0x080488e4      nop
+0x080488e5      nop
+0x080488e6      nop
+0x080488e7      nop
+0x080488e8      nop
+0x080488e9      nop
+0x080488ea      nop
+0x080488eb      nop
+0x080488ec      nop
+0x080488ed      nop
+0x080488ee      nop
+0x080488ef      nop
