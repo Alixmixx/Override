@@ -1,18 +1,20 @@
 #include <stdio.h>
-#include <stdbool.h>
+#include <stdint.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 bool main(void)
 {
-	int array[4];
+	int32_t inputArray[3];
 
 	puts("***********************************");
-	puts("* \t     -Level00 -\t\t  *");
+	puts("*           -Level00 -            *");
 	puts("***********************************");
-	printf("Password:");
+	printf("Password: ");
 
-	scanf("%d", array);
-	if (array[0] != 5276)
+	scanf("%d", &inputArray[0]);
+
+	if (inputArray[0] != 0x149c) // 5276
 	{
 		puts("\nInvalid Password!");
 	}
@@ -21,5 +23,6 @@ bool main(void)
 		puts("\nAuthenticated!");
 		system("/bin/sh");
 	}
-	return array[0] != 5276;
+
+	return inputArray[0] != 0x149c;
 }
