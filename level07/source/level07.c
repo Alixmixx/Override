@@ -4,14 +4,11 @@
 
 int store_number(unsigned int *data)
 {
-	unsigned int input;
-	unsigned int index;
-
 	printf(" Number: ");
-	input = get_unum();
+	unsigned int input = get_unum();
 
 	printf(" Index: ");
-	index = get_unum();
+	unsigned int index = get_unum();
 
 	if (index % 3 == 0 || (input >> 0x18) == 0xb7)
 	{
@@ -27,11 +24,8 @@ int store_number(unsigned int *data)
 
 int read_number(unsigned int *data)
 {
-	unsigned int index;
-
 	printf(" Index: ");
-	index = get_unum();
-
+	unsigned int index = get_unum();
 	printf(" Number at data[%u] is %u\n", index, data[index]);
 	return 0;
 }
@@ -61,9 +55,7 @@ int main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
-
 		printf("Input command: ");
-
 		fgets(command, sizeof(command), stdin);
 		command[strcspn(command, "\n")] = '\0';
 
@@ -81,6 +73,5 @@ int main(int argc, char **argv, char **envp)
 
 		memset(command, 0, sizeof(command));
 	}
-
 	return EXIT_SUCCESS;
 }
