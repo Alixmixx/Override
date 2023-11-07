@@ -27,7 +27,7 @@ int auth(char *username, unsigned int serial)
 	checksum = (username[3] ^ 0x1337) + 0x5eeded;
 	for (i = 0; i < len; i++)
 	{
-		if (username[i] < 32)
+		if (username[i] < ' ')
 			return 1;
 		checksum += (username[i] ^ checksum) % 0x539;
 	}
