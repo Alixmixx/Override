@@ -6,12 +6,8 @@
 
 int auth(char *username, unsigned int serial)
 {
-	size_t len;
-	int i;
-	unsigned int checksum;
-
 	username[strcspn(username, "\n")] = '\0';
-	len = strnlen(username, 32);
+	size_t len = strnlen(username, 32);
 
 	if (len < 6)
 		return 1;
@@ -24,8 +20,8 @@ int auth(char *username, unsigned int serial)
 		return 1;
 	}
 
-	checksum = (username[3] ^ 0x1337) + 0x5eeded;
-	for (i = 0; i < len; i++)
+	unsigned int checksum = (username[3] ^ 0x1337) + 0x5eeded;
+	for (int i = 0; i < len; i++)
 	{
 		if (username[i] < ' ')
 			return 1;
