@@ -19,6 +19,19 @@
     1073741938
 
 
+En gros, on veut changer les adresses a 114 et 116 bytes apres esp pour faire un ret2libc
+pour faire ca c'est facile, a 116 on veut "/bin/sh" et a 114 on veut system
+pour trouver les adresses on peut utiliser gdb et faire find __libc_start_main,+999999999,"/bin/sh"
+et find system,+999999999,"/bin/sh"
+Apres ca on convertit les adresses en uint et on les ecrit avec store
+puis on fait quit pour faire un ret2libc
+super facile avec "/bin/sh" parceque 116 est pas modulo 3
+Par contre pour 114, on doit faire attention a ce que le nombre est modulo 3
+donc le programme nous empeche d'ecrire l'addresse de system directement
+mais comme data est un tableau de uint, on peut faire overflow *(uint *)(uVar2 * 4 + param_1) = uVar1;
+avec un petit programe on trouve quel nombre overflow * 4 est pas modulo 3 equal 114 * 4
+et boom c'est 1073741938 du coup on fait tout ca et on a un shell
+
 
 
     (gdb) b *0x08048857
@@ -154,4 +167,4 @@ Breakpoint 1, 0x08048857 in main ()
 Continuing.
 Input command: quit
 $ whoami
-level07
+level08
