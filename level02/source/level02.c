@@ -1,49 +1,54 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 int main(void)
 {
-	int password[41];
-	int pass[41];
-	int username[100];
-	int bytesRead;
-	FILE *passwordFile;
-
-	memset(password, 0, 41);
-	memset(pass, 0, 41);
-	memset(username, 0, 100);
+	char username[100] = {0};
+	char inputPassword[100] = {0};
+	char realPassword[41] = {0};
+	int bytesRead = 0;
+	FILE *passwordFile = NULL;
 
 	passwordFile = fopen("/home/users/level03/.pass", "r");
-	if (passwordFile == 0)
+	if (passwordFile == NULL)
 	{
 		fwrite("ERROR: failed to open password file\n", 1, 36, stderr);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
-	bytesRead = fread(pass, 1, 41, passwordFile);
+
+	bytesRead = fread(realPassword, 1, 41, passwordFile);
+	realPassword[strcspn(realPassword, "\n")] = '\0';
 	if (bytesRead != 41)
 	{
 		fwrite("ERROR: failed to read password file\n", 1, 36, stderr);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	fclose(passwordFile);
 
 	puts("| You must login to access this system. |");
 	printf("--[ Username: ");
 	fgets(username, 100, stdin);
+	username[strcspn(username, "\n")] = '\0';
 
 	printf("--[ Password: ");
-	fgets(password, 100, stdin);
+	fgets(inputPassword, 100, stdin);
+	inputPassword[strcspn(inputPassword, "\n")] = '\0';
+
 	puts("*****************************************");
 
-	if (strncmp(pass, password, 41) == 0)
+	if (!strncmp(realPassword, inputPassword, 41))
 	{
 		printf("Greetings, %s!\n", username);
 		system("/bin/sh");
-		return 0;
+	}
+	else
+	{
+		printf(username);
+		puts(" does not have access!");
+		exit(EXIT_FAILURE);
 	}
 
-	printf(username);
-	puts(" does not have access!");
-	exit(1);
+	return EXIT_SUCCESS;
 }

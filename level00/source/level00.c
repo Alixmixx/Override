@@ -1,11 +1,10 @@
 #include <stdio.h>
-#include <stdint.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-bool main(void)
+int main(void)
 {
-	int32_t inputValue;
+	int inputValue;
 
 	puts("***********************************");
 	puts("*           -Level00 -            *");
