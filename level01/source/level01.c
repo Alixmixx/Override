@@ -6,14 +6,14 @@ char a_user_name[100];
 int verify_user_name(void)
 {
 	char *username = &a_user_name;
-	char *expectedName = "dat_wil";
+	char *expectedUsername = "dat_wil";
 
 	puts("verifying username....\n");
 
 	for (int i = 0; i < 7; i++)
 	{
-		if (username[i] != expectedName[i])
-			return username[i] - expectedName[i];
+		if (username[i] != expectedUsername[i])
+			return username[i] - expectedUsername[i];
 	}
 
 	return 0;

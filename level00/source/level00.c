@@ -5,16 +5,16 @@
 
 bool main(void)
 {
-	int32_t inputArray[3];
+	int32_t inputValue;
 
 	puts("***********************************");
 	puts("*           -Level00 -            *");
 	puts("***********************************");
 	printf("Password: ");
 
-	scanf("%d", &inputArray[0]);
+	scanf("%d", &inputValue);
 
-	if (inputArray[0] != 0x149c) // 5276
+	if (inputValue != 0x149c) // 5276
 	{
 		puts("\nInvalid Password!");
 	}
@@ -24,5 +24,5 @@ bool main(void)
 		system("/bin/sh");
 	}
 
-	return inputArray[0] != 0x149c;
+	return inputValue != 0x149c;
 }
