@@ -6,7 +6,6 @@ int store_number(unsigned int *data)
 {
 	printf(" Number: ");
 	unsigned int input = get_unum();
-
 	printf(" Index: ");
 	unsigned int index = get_unum();
 
@@ -38,7 +37,6 @@ int main(int argc, char **argv, char **envp)
 
 	for (int i = 0; envp[i] != NULL; i++)
 		memset(envp[i], 0, strlen(envp[i]));
-
 	for (int i = 0; argv[i] != NULL; i++)
 		memset(argv[i], 0, strlen(argv[i]));
 
