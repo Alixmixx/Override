@@ -1,7 +1,7 @@
-# Project SECURITY OverRide
+# Project OverRide
 
 ## Introduction
-This repository contains our solutions to the "Project SECURITY Over Ride," focusing on elf-like binary exploitation in i386 systems. Each solution demonstrates an understanding of RAM and security principles crucial for developing secure software.
+This repository contains our solutions to the "Project OverRide," focusing on elf-like binary exploitation in i386 systems. Each solution demonstrates an understanding of RAM and security principles crucial for developing secure software.
 
 ## Project Structure
 The project is structured with directories for each level, containing the exploited binary, a walkthrough of the solution, and any additional resources used.
