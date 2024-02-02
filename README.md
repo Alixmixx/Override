@@ -23,5 +23,5 @@ Each level directory contains:
 These solutions are part of an educational project. They are meant for learning and demonstrating security concepts in software development.
 
 ## Contributions
-This project was made in collaboration with Lorenzo Edoardo Francesco. I'd like to extend my heartfelt thanks to him for his invaluable contributions. His insights, expertise, and dedication were pivotal in the success of this project. His ability to tackle complex problems with innovative solutions has been a source of inspiration throughout this journey. Working alongside Lorenzo has been an enriching experience, and I am profoundly grateful for the knowledge and perspectives he shared.
-    https://github.com/lorenzoedoardofrancesco
+This project was made in collaboration with Lorenzo Edoardo Francesco. His invaluable contributions, encompassing insights, expertise, and dedication, were instrumental to the success of this project. His innovative problem-solving skills have been inspiring. I am immensely grateful for the knowledge and experience gained through this collaboration.
+- [Lorenzo Edoardo Francesco](https://github.com/lorenzoedoardofrancesco)
